@@ -24,10 +24,7 @@ int main()
 	delay_milli(1);
 	LCD_Data('X');
 	delay_milli(1);
-	delay_micro(500);
-	
-	
-	
+	delay_micro(500);	
 }
 
 void LCD_init(void)
