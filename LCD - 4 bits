@@ -1,0 +1,87 @@
+#include "TM4C123.h"                    // Device header
+
+#define LCD GPIOB
+#define RS 1 // 0x01 : 0B 0000 0001 : PB0
+#define RW 2 // 0x02 : 0B 0000 0010 : PB1
+#define EN 4 // 0x04 : 0B 0000 0100 : PB2
+//prototypes
+void delayUs(int n);
+void delayMs(int n);
+void LCD_Write4bits(unsigned char data, unsigned char control);
+void LCD4bits_Cmd(unsigned char command);
+void LCD4bits_Init(void);
+void LCD4BITS_Data(unsigned char data);
+
+int main()
+{
+	LCD4bits_Init();
+	LCD4bits_Cmd(1);
+	LCD4bits_Cmd(0x80);
+	delayMs(500);
+	LCD4BITS_Data('H');
+	
+	
+}
+
+void LCD4bits_Init(void)
+{
+	SYSCTL->RCGCGPIO |= (1U<<1); // PB
+	LCD->DIR = 0xFF; // 0B 1111 1111	
+	LCD->DEN = 0xFF; // 0B 1111 1111
+	LCD4bits_Cmd(0x28); // Set mode as 4-bits, 2 lines, 5x7 fonts
+	LCD4bits_Cmd(0x06); // Move cursor right
+	LCD4bits_Cmd(0x01); // Clear screen
+	LCD4bits_Cmd(0x0F); // Turn display on
+	//....
+	//...
+	//..
+	//.
+	
+}
+
+void LCD_Write4bits(unsigned char data, unsigned char control)
+{
+	data &= 0xF0; // clear lower 4 bits to keep just upper bits i.e. data bits
+	control &= 0x0F; // clear upper 4 bits to keep just lower bits i.e. control bits
+	LCD->DATA = data | control;
+	LCD->DATA = data | control | EN;
+	delayUs(0);
+	LCD -> DATA = data;
+}
+
+void LCD4bits_Cmd(unsigned char command)
+{
+	LCD_Write4bits(command & 0xF0,0); //upper 4 bits
+	LCD_Write4bits(command<<4,0);  //lower 4 bits
+	
+	if(command<4)
+		delayMs(2);
+	else
+		delayUs(40);
+}
+
+void LCD4BITS_Data(unsigned char data)
+{
+	LCD_Write4bits(data & 0xF0, RS);
+	LCD_Write4bits(data << 4, RS);
+	delayUs(40);
+}
+
+void delayMs(int n)
+{
+	int x,y;
+	for(x=0; x<n; x++){
+	 for(y=0; y<3180; y++)
+		{}
+	}
+}
+
+void delayUs(int n)
+{
+	int x,y;
+	for(x=0; x<n; x++)
+	{
+		for(y=0; y<3; y++)
+		{}
+	}
+}
