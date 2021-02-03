@@ -14,7 +14,16 @@ int main()
 	delay_milli(500);
 	LCD_Data('C');
 	delay_milli(1);
-	LCD_Data('M');
+	LCD_Data('O');
+	delay_milli(1);
+	LCD_Data('R');
+	delay_milli(1);
+	LCD_Data('T');
+	delay_milli(1);
+	LCD_Data('E');
+	delay_milli(1);
+	LCD_Data('X');
+	delay_milli(1);
 	delay_micro(500);
 	
 	
@@ -33,6 +42,7 @@ void LCD_init(void)
 	LCD_Cmd(0x06); //increment automatically
 	LCD_Cmd(0x0F); //Turn on display
 	LCD_Cmd(0x01); //clear display
+}
 
 void LCD_Data(unsigned char data)
 {
@@ -43,6 +53,7 @@ void LCD_Data(unsigned char data)
   GPIOA->DATA = 0x00;
   delay_micro(0);  
 }
+
 void LCD_Cmd(unsigned char command)
 {
 		GPIOA->DATA = 0x00; //RS=0, RW=0, E=0
@@ -56,7 +67,7 @@ void LCD_Cmd(unsigned char command)
 			delay_micro(37); //delay_micro(40)
 }
 
-}
+
 
 void delay_micro(int n)
 {
@@ -69,7 +80,7 @@ void delay_micro(int n)
 void delay_milli(int n)
 {
 	int i,j;
-	for(i=0;i<n;i++)
+	for(i=0;i<n;i++) b
 	for(j=0;j<3180;j++)
 	{}
 }
