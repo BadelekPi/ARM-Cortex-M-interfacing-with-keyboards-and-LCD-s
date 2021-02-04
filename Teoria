@@ -1,0 +1,15 @@
+ARM Cotrex M:
+-A group of 32-bits processor cores (internal registers in the register bank are 32-bits)
+-Licensed by ARM company
+
+32-bits processors:
+-Rejestry wewnętrzne są 32-bitowe
+-Ścieżki danych są 32-bitowe
+-Interfejsy magistrali są 32-bitowe
+
+Cortex-M ma architekturę Harvardzką (pamięć danych programu jest oddzielona od pamięci rozkazów).
+
+Główną funkcją rejestrów (R0-R12) jest przechowywanie danych lub adresów.
+Rejestr R13 jest nazywano jako wskaźnik stosu - stack pointer (SP), wskazuje element na szczycie stosu.
+Rejestr R14 jest znany jako rejestr linków - Link Register (LR) i jest używany do przechowywania miejsca do którego mają wracać funkcję
+Rejestr R15 jest nazywany jako Program Counter (PC), może być nadpisywany lub odczytywany
